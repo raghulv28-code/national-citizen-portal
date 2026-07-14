@@ -1,20 +1,40 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
+# Public Service Counter Token Management System
 
-# Run and deploy your AI Studio app
+A web-based queue management system for government offices that allows citizens to generate service tokens and enables officers to manage queues efficiently.
 
-This contains everything you need to run your app locally.
+## 🚀 Live Demo
 
-View your app in AI Studio: https://ai.studio/apps/423180f0-7018-42fc-8888-7b527ae7cd06
+https://public-service-counter-token-manage.vercel.app
 
-## Run Locally
+## 📂 GitHub Repository
 
-**Prerequisites:**  Node.js
+https://github.com/raghulv28-code/public-service-counter-token-management-system
 
+## Features
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+- Citizen Login
+- Officer Login
+- Token Generation
+- Live LED Queue Board
+- Token Calling System
+- Admin Dashboard
+- Morning & Evening Sessions
+
+## Technologies Used
+
+- React
+- TypeScript
+- Vite
+- Tailwind CSS
+- Node.js
+
+## Installation
+
+```bash
+npm install
+npm run dev
+```
+
+## Deployment
+
+Deployed using **Vercel**.
