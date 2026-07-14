@@ -6,7 +6,8 @@ A modern web-based citizen service portal that provides easy access to essential
 
 ## 🚀 Live Demo
 
-https://YOUR_VERCEL_LINK.vercel.app
+**Live Website:**  
+https://national-citizen-portal.vercel.app
 
 ---
 
@@ -50,7 +51,7 @@ The National Citizen Portal is designed to simplify interactions between citizen
 
 ## 📁 Project Structure
 
-```
+```text
 national-citizen-portal/
 │
 ├── src/
@@ -64,33 +65,33 @@ national-citizen-portal/
 
 ---
 
-## ⚙ Installation
+## ⚙️ Installation
 
-Clone the repository
+### Clone the repository
 
 ```bash
 git clone https://github.com/raghulv28-code/national-citizen-portal.git
 ```
 
-Go to the project directory
+### Navigate to the project directory
 
 ```bash
 cd national-citizen-portal
 ```
 
-Install dependencies
+### Install dependencies
 
 ```bash
 npm install
 ```
 
-Start the development server
+### Start the development server
 
 ```bash
 npm run dev
 ```
 
-Build the project
+### Build the project
 
 ```bash
 npm run build
@@ -100,17 +101,17 @@ npm run build
 
 ## 🌐 Deployment
 
-This application is deployed using **Vercel**.
+This application is deployed on **Vercel** for fast, secure, and reliable hosting.
 
 ---
 
 ## 🎯 Objectives
 
 - Digitize citizen services
-- Improve accessibility
-- Reduce waiting time
-- Increase transparency
-- Provide a responsive web experience
+- Improve accessibility to government services
+- Reduce paperwork and waiting time
+- Increase transparency in service delivery
+- Provide a responsive and user-friendly experience
 
 ---
 
@@ -118,7 +119,7 @@ This application is deployed using **Vercel**.
 
 **V. Rahul**
 
-B.E. Computer Science and Engineering (Cyber Security)
+**B.E. Computer Science and Engineering (Cyber Security)**
 
 Prince Dr. K. Vasudevan College of Engineering and Technology
 
