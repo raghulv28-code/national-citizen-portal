@@ -1,0 +1,6 @@
+{
+  "name": "Smart Public Service Queue Management System",
+  "description": "A comprehensive digital queue and counter token management platform for government offices, featuring real-time LED displays, citizen token generation, officer counters, admin analytics, and AI assistance.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

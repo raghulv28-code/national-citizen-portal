@@ -1,0 +1,156 @@
+// prisma/schema.prisma
+// Production Prisma schema for Smart Public Service Counter Token & Queue Management System
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  CITIZEN
+  OFFICER
+  ADMIN
+  SUPER_ADMIN
+}
+
+enum TokenStatus {
+  PENDING
+  CALLING
+  IN_PROGRESS
+  COMPLETED
+  SKIPPED
+  CANCELLED
+}
+
+enum PriorityLevel {
+  REGULAR
+  SENIOR_CITIZEN
+  DISABLED
+  EMERGENCY
+}
+
+enum CounterStatus {
+  OPEN
+  CLOSED
+  PAUSED
+}
+
+model User {
+  id            String      @id @default(uuid())
+  name          String
+  email         String      @unique
+  passwordHash  String
+  phone         String?
+  role          Role        @default(CITIZEN)
+  departmentId  String?
+  department    Department? @relation(fields: [departmentId], references: [id])
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+}
+
+model Department {
+  id           String        @id @default(uuid())
+  name         String        @unique // e.g. "Revenue Department"
+  code         String        @unique // e.g. "REV"
+  icon         String        // Lucide icon name, e.g. "Landmark"
+  description  String
+  services     Service[]
+  counters     Counter[]
+  users        User[]
+  tokens       Token[]
+  createdAt    DateTime      @default(now())
+}
+
+model Service {
+  id                String       @id @default(uuid())
+  departmentId      String
+  department        Department   @relation(fields: [departmentId], references: [id], onDelete: Cascade)
+  name              String
+  avgMinutes        Int          @default(15)
+  description       String
+  requiredDocuments String[]     // PostgreSQL array or serialized JSON
+  tokens            Token[]
+  appointments      Appointment[]
+  createdAt         DateTime     @default(now())
+}
+
+model Counter {
+  id                 String        @id @default(uuid())
+  counterNumber      Int
+  departmentId       String
+  department         Department    @relation(fields: [departmentId], references: [id], onDelete: Cascade)
+  officerId          String?       @unique
+  officerName        String?
+  status             CounterStatus @default(CLOSED)
+  currentTokenId     String?       @unique
+  currentTokenNumber String?
+  tokens             Token[]       @relation("CounterTokens")
+  createdAt          DateTime      @default(now())
+}
+
+model Token {
+  id                   String        @id @default(uuid())
+  tokenNumber          String        @unique // e.g. REV-001
+  sequence             Int
+  citizenName          String
+  mobile               String
+  email                String?
+  aadhaar              String?
+  status               TokenStatus   @default(PENDING)
+  priority             PriorityLevel @default(REGULAR)
+  departmentId         String
+  department           Department    @relation(fields: [departmentId], references: [id])
+  serviceId            String
+  service              Service       @relation(fields: [serviceId], references: [id])
+  counterId            String?
+  counter              Counter?      @relation("CounterTokens", fields: [counterId], references: [id])
+  counterNumber        Int?
+  estimatedWaitMinutes Int           @default(15)
+  queuePosition        Int           @default(1)
+  slot                 String        @default("MORNING") // "MORNING" or "AFTERNOON"
+  isOnlineBooked       Boolean       @default(false)
+  appointmentId        String?       @unique
+  appointment          Appointment?  @relation(fields: [appointmentId], references: [id])
+  calledAt             DateTime?
+  completedAt          DateTime?
+  createdAt            DateTime      @default(now())
+}
+
+model Appointment {
+  id           String     @id @default(uuid())
+  citizenName  String
+  mobile       String
+  email        String?
+  departmentId String
+  serviceId    String
+  service      Service    @relation(fields: [serviceId], references: [id])
+  date         DateTime   // Appointment Date
+  slot         String     // e.g. "10:00 AM - 10:30 AM"
+  status       String     @default("CONFIRMED") // "PENDING", "CONFIRMED", "CANCELLED", "TOKEN_GENERATED"
+  token        Token?
+  createdAt    DateTime   @default(now())
+}
+
+model Feedback {
+  id           String    @id @default(uuid())
+  tokenNumber  String
+  citizenName  String
+  rating       Int       // 1 to 5
+  comments     String
+  sentiment    String?   // "positive", "neutral", "negative" via AI analysis
+  createdAt    DateTime  @default(now())
+}
+
+model AuditLog {
+  id         String   @id @default(uuid())
+  userId     String
+  userName   String
+  role       String
+  action     String
+  details    String
+  createdAt  DateTime @default(now())
+}
